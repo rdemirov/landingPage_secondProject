@@ -47,6 +47,7 @@ const buildNavMenu = () => {
     const listItem = document.createElement("li");
     const sectionInfo = section.getAttribute("data-nav");
     const sectionLink = document.createElement("a");
+    sectionLink.setAttribute('data-nav',sectionInfo);
     sectionLink.setAttribute("href", `#${section.getAttribute("id")}`);
     sectionLink.addEventListener("click", scrollToSection);
     sectionLink.classList.add("menu__link");
@@ -63,9 +64,20 @@ const setSectionActive = () => {
         const headerElement = document.querySelector('.page__header');
         const headerY = headerElement.getBoundingClientRect().y;
         const sectionTop = section.getBoundingClientRect().top;
+        const sectionNav = section.getAttribute('data-nav');
+        const sectionLink = document.querySelector(`a[data-nav="${sectionNav}"]`);
     if (sectionTop > headerY/2 && sectionTop <= (window.innerHeight*0.8))
-        section.classList.add("your-active-class");
-        else  section.classList.remove("your-active-class");
+        {
+            sectionLink.style.backgroundColor='black';
+            sectionLink.style.color='white';
+            section.classList.add("your-active-class");
+        }
+        else
+            {
+                sectionLink.style.backgroundColor='white';
+                sectionLink.style.color='black';
+                section.classList.remove("your-active-class");
+            }
     });
 };
 /**
